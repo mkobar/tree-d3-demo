@@ -1,0 +1,134 @@
+{
+    "name": "A1-Bats",
+    "flag": false,
+    "usechildren": [
+        {
+            "name": "test"
+        }
+    ],
+    "children": [
+        {
+            "name": "B1-Black Bats",
+            "flag": true,
+	    "visited": true,
+            "children": [
+                {
+                    "name": "C1",
+                    "visited": true,
+                    "size": 3534,
+                    "flag": false
+                },
+                {
+                    "name": "C2",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C3-Brown Bats",
+                    "flag": false,
+                    "children": [
+                        {
+                            "name": "D1-HogNosed Bats",
+                            "size": 3534,
+                            "flag": true,
+                            "visited": true
+                        },
+                        {
+                            "name": "D2",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D3",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D4-Tiny Bats",
+                            "children": [
+                                {
+                                    "name": "E1-Baby Bats",
+                                    "size": 3534,
+                                    "flag": true,
+				    "visited": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+	    ]
+        },
+	{
+            "name": "B2-Old Bats",
+            "children": [
+                {
+                    "name": "C4",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C5-Red Bats",
+                    "children": [
+                        {
+                            "name": "D5-Blue Bats",
+                            "size": 3534
+                        },
+                        {
+                            "name": "D6-Vampire Bats",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D7",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D8-Spider Bats",
+                            "children": [
+                                {
+                                    "name": "E2-White Bats",
+                                    "size": 3534
+                                }
+                            ]
+                        }
+                    ]
+                }
+	   ]
+        },
+	{
+            "name": "B3-Grey Bats",
+            "children": [
+                {
+                    "name": "C6-where to see bats",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C7-how to see bats",
+                    "children": [
+                        {
+                            "name": "D9-at night",
+                            "size": 3534
+                        },
+                        {
+                            "name": "D10-in the dark",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D11-in caves",
+                            "children": [
+                                {
+                                    "name": "E3-Cave Bats",
+                                    "size": 3534
+                                }
+                            ]
+                        }
+                    ]
+                }
+	   ]
+        }
+
+    ]
+}

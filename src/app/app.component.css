@@ -1,0 +1,126 @@
+/* search-pageComponent's private CSS styles */
+h1 {
+    font-size: 1.2em;
+    color: #999;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+nav a {
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+nav a:visited,
+a:link {
+    /*color: #607d8b;*/
+    color: #6542a4;
+}
+
+nav a:hover {
+    color: #039be5;
+    background-color: #cfd8dc;
+}
+
+nav a.active {
+    color: #039be5;
+}
+
+/* Box styles */
+/*
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+#container searchBox {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow: scroll;
+    height: 0px;
+}
+
+#outer_container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+*/
+
+/*Flexbox gives us the flexiness we need. The top just stays put as there is no scrolling on the body due to the page never exceeding viewport height*/
+/* note: Top, Bottom and Container are in top styles.css */
+
+/*All the scrollable sections should overflow and be whatever height they need to be. As they are flex-items (due to being inside a flex container) they could be made to stretch full height at all times if needed.
+WebKit inertia scrolling is being added here for any present/future devices that are able to make use of it.
+*/
+/* note: Query moved to global styles.css */
+
+/*  Query is set size while the MiddleContainer is set to flex one so it occupies all remaining space. This could be set as a width too if prefereable, perhaps using calc.*/
+
+.MiddleContainer {
+    display: flex;
+    /* need this for scrollbar in results */
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+    /*height: 100vh;**/
+    position: relative;
+    width: 100%;
+    /*
+    backface-visibility: hidden;
+    will-change: overflow;
+    */
+}
+
+/* note: Search, Map, Map2 and Query2 moved to global styles.css */
+
+.ExtraButtons2 {
+    /*height: 150px;*/
+    width: 100px;
+    margin: 5px;
+    flex: none;
+}
+
+.Results {
+    flex: 1 1 auto;
+    /*overflow: auto; will NOT show scroll if list is short */
+    overflow: scroll;
+    height: auto;
+    padding: .5rem;
+    /**
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    **/
+}
+
+/* modify ng-bootstrap styles - not working in styles.css? */
+:host ::ng-deep .tabset1 {
+    height: 100%;
+}
+
+:host ::ng-deep .tabset1 .tab-content {
+    height: 100%;
+    /* margin-top: -42px; /* nav-tab height */
+    padding-top: 42px;
+    /* needed to show tabs */
+}
+
+:host ::ng-deep .tabset1 .tab-pane {
+    height: 100%;
+    margin-top: -42px;
+    /* nav-tab height */
+    /*padding-top: 42px;*/
+    color: #6542a4;
+    font-weight: 300;
+}

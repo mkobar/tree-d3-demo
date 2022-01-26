@@ -1,0 +1,313 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* AppComponent's private CSS styles */
+h1 {
+    font-size: 1.2em;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+nav a {
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+nav a:visited,
+a:link {
+    color: #607d8b;
+}
+
+nav a:hover {
+    color: #039be5;
+    background-color: #cfd8dc;
+}
+
+nav a.active {
+    color: #039be5;
+}
+
+/* Box styles */
+/*
+.searchBox {
+    border: none;
+    padding: 5px;
+    /*width: 600px;*
+    /*height: 360px;*
+    height: 500px;
+    overflow: scroll;
+    margin-right: -16px;
+}
+*/
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px olivedrab;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: yellowgreen;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7bac10;
+}
+
+/*I love me some border-box*/
+* {
+    box-sizing: border-box;
+}
+
+/*This just stops me getting horizontal scrolling if anything overflows the width*/
+body {
+    overflow-x: hidden;
+}
+
+/*Just removing default browser padding/margin*/
+html,
+body {
+    padding: 0;
+    margin: 0;
+    /*color: #ebebeb; // grey  */
+    color: black;
+}
+
+
+/* global styles */
+
+
+/* Top and Bottom - same for all pages */
+/*Flexbox gives us the flexiness we need. The top just stays put as there is no scrolling on the body due to the page never exceeding viewport height*/
+.Top {
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*align-items: baseline;*/
+    /*justify-content: center;*/
+    /*justify-content: space-between;*/
+    /*background-color: black;**/
+    font-size: 2rem;
+    /* button only? */
+    position: relative;
+    z-index: 10;
+    height: 90px;
+}
+
+.Bottom {
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    /*background-color: lightGrey;*/
+    font-size: 1rem;
+    position: relative;
+    z-index: 10;
+    height: 36px;
+}
+
+/*This is our main wrapping element, it's made 100vh high to ensure it is always the correct size and then moved into place and padded with negative margin and padding*/
+.Container {
+    display: flex;
+    overflow: hidden;
+    height: 100vh;
+    /*
+    height: auto;
+    height: 100%;
+    */
+    margin-top: -90px;
+    padding-top: 90px;
+    margin-bottom: -36px;
+    padding-bottom: 36px;
+    position: relative;
+    /**justify-content: flex-start;**/
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+/*All the scrollable sections should overflow and be whatever height they need to be. As they are flex-items (due to being inside a flex container) they could be made to stretch full height at all times if needed.
+WebKit inertia scrolling is being added here for any present/future devices that are able to make use of it.
+*/
+.Query {
+    display: flex;
+    /*flex: 1 1 auto;*/
+    flex-direction: column;
+    overflow: hidden;
+    /*height: 100vh;*/
+    /*height: auto;*/
+    /*height: 100%;*/
+    /*padding: .5rem;*/
+    position: relative;
+    /*flex: 1 1 410px; /* lose scrollbar */
+    flex: 1 0 410px;
+    width: 410px;
+    /* should be 400px + scrollbar*/
+    /*
+    backface-visibility: hidden;
+    will-change: overflow;
+    */
+    /**
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    **/
+}
+
+.Search {
+    height: 60px;
+    width: 98%;
+    margin: 5px;
+    flex: none;
+}
+
+.Map {
+    display: flex;
+    height: 255px;
+    width: auto;
+    margin: 5px;
+    /*flex: none;*/
+}
+
+.Map2 {
+    /* border: 3px blue;*/
+    border: solid;
+    /**width: auto; not needed? **/
+    /**max-width: 90%; not needed? **/
+    /*position: relative;*/
+    z-index: 999;
+    /*margin: 1em 0;
+    padding: 4px;*/
+    min-width: 160px;
+    background: #fcfaf0;
+    /* flex: none;*/
+    /*overflow: scroll;*/
+    overflow: hidden;
+    /*transition: .6s cubic-bezier(0, 1.25, .5, 1)*/
+}
+
+.Map2:hover,
+.Map2:focus {
+    /* border: 3px blue;*/
+    /*background: #e0d8b7;*/
+    background: #fcfaf0;
+    /* flex: none;*/
+    overflow: scroll;
+    position: fixed;
+    /** transform-origin: top right;**/
+    /**transform-origin: top right; **/
+   /**transform: translateX(-90px); **/
+
+    /* transform: scale(-1.35,1.35) */
+    /* -webkit Safari 5+, Chrome 10+ iOS 3.2+ Android 2.1+ Blackberry 7+ */
+    -webkit-transform: scale(1.10, 2.90) translateX(-195px);
+    /* -moz Firefox */
+    -moz-transform: translateX(-290px) scaleY(2.90);
+    /* -o Opera */
+    -o-transform: translateX(-395px) scale(1.10, 1.70);
+    transform: scale(1.10, 1.90) translateX(-195px);
+    /* transform: scale(1.25,1.35);*/
+}
+
+.Query2 {
+    flex: 1 1 auto;
+    /*overflow: auto; will NOT show scroll if list is short */
+    overflow: scroll;
+    /*height: auto;*/
+    height: 100%;
+    padding: .5rem;
+    /**
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    **/
+}
+
+/* global Scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px olivedrab;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: yellowgreen;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7bac10;
+}
+
+
+/* global purple and green color buttons and text */
+
+.text-purple {
+    color: #6542a4;
+    /* purple */
+    /* color: #876cb9; * light purple */
+}
+
+
+
+.isearch-bg {
+    background: URL('assets/images/ApplicationHeader.jpg') no-repeat top center;
+    /***
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  ***/
+    /*background-size: cover;*/
+    /* has spaces on sides */
+    /*background-size: contain; big spaces on sides */
+    /* background-size: auto; same as cover */
+    background-size: 100%;
+    width: 100%;
+}
+
+/* modify ng-bootstrap styles - NOT working globally?*/
+:host ::ng-deep .tabset1 {
+    height: 100%;
+}
+
+:host ::ng-deep .tabset1 .tab-content {
+    height: 100%;
+    /* margin-top: -42px; /* nav-tab height */
+    padding-top: 42px;
+    /* needed to show tabs */
+}
+
+:host ::ng-deep .tabset1 .tab-pane {
+    height: 100%;
+    margin-top: -42px;
+    /* nav-tab height */
+    /*padding-top: 42px;*/
+    /*color: #6542a4;*/
+    font-weight: 300;
+}
+
+.nav-pills .nav-link {
+    color: #6542a4;
+    /* purple */
+}
+
+.nav-pills .nav-link.active {
+    background-color: #6542a4;
+    /* purple */
+}
