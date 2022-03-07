@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
-declare let d3: any;
+//declare let d3: any;
+//declare let d3: any;
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-mapper',
@@ -81,7 +83,7 @@ export class MapperComponent implements OnInit {
     let nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
       .attr("transform", function (d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .on("click", function (d) {
+      .on("click", function (event,d) {
         self.isCollapse = true;
         d3.selectAll("line").remove()
         self.update(d, true);
@@ -91,7 +93,7 @@ export class MapperComponent implements OnInit {
       .attr("r", 1e-6)
       .attr("id", function (d) { return 'circle' + d.id })
       .attr("style", "stroke: #0000FF; stroke-width: 3; cursor: pointer")
-      .on('click', function (d) { toggle(d); });
+      .on('click', function (event,d) { toggle(d); });
 
     nodeEnter.append("svg:image")
     .attr("xlink:href", function (d) { return d.data.flag ? "assets/images/flagged-24.png" : null; })
@@ -100,7 +102,7 @@ export class MapperComponent implements OnInit {
       .attr("height", 10)
       .attr("width", 10)
       .style("cursor", "pointer")
-      .on('click', function (d) { toggle(d); });
+      .on('click', function (event,d) { toggle(d); });
 
     nodeEnter.append("svg:rect")
       .attr('style', 'fill: #c8f26d;')
@@ -214,7 +216,7 @@ export class MapperComponent implements OnInit {
       .attr("y2", function (d) { return d.parent.x; })
       .remove();
 
-    nodes.forEach(function (d) {
+    nodes.forEach(function (d: any) {
       d.x0 = d.x;
       d.y0 = d.y;
     });
@@ -224,11 +226,14 @@ export class MapperComponent implements OnInit {
         d._children = d.children;
         d.children = null;
       } else {
-        if (d.parent && d.parent.children)
+        if (d.parent && d.parent.children) {
           d.parent.children.forEach(self.collapse)
+	}
         d.children = d._children;
         d._children = null;
-        d.children.forEach(self.collapse);
+        if (d.children) {
+          d.children.forEach(self.collapse)
+        }
       }
       self.selectedNode = d
       self.update(d, true);
