@@ -78,34 +78,45 @@ export class MapperComponent implements OnInit {
   }
 
   update(source: any, selected: boolean, first: boolean) {
+    console.log("UPDATE with first =", first)
+    console.log("source.translate y0 x0 0= ", source)
+
     let self = this;
 
     if (first) {
       //let treeData = self.treemap(self.root);
       //let nodes = treeData.descendants();
       //let links = treeData.descendants().slice(1);
-      this.treeData = self.treemap(self.root);
-      this.nodes = this.treeData.descendants();
-      this.links = this.treeData.descendants().slice(1);
-      this.lastNodeId = this.nodes.length
+      
+      //this.treeData = self.treemap(self.root);
+      //this.nodes = this.treeData.descendants();
+      //this.links = this.treeData.descendants().slice(1);
+      //this.lastNodeId = this.nodes.length
+      self.treeData = self.treemap(self.root);
+      self.nodes = self.treeData.descendants();
+      self.links = self.treeData.descendants().slice(1);
+      self.lastNodeId = self.nodes.length
     }
     //
     //let sizeBetweenNodes = 270;
     let sizeBetweenNodes = 270;
 
-    this.nodes.forEach(function (d) { d.y = d.depth * 270 });
+    self.nodes.forEach(function (d) { d.y = d.depth * 270 });
 
     let node = self.svg.selectAll('g.node')
-      .data(this.nodes, function (d) { return d.id || (d.id = ++self.i); });
+      .data(self.nodes, function (d) { return d.id || (d.id = ++self.i); });
 
     let nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
-      .attr("transform", function (d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .attr("transform", function (d) {
+         console.log("source.translate y0 x0 = ", source)
+	 return "translate(" + source.y0 + "," + source.x0 + ")";
+      })
       .on("click", function (event, d) {
         self.isCollapse = true;
         d3.selectAll("line").remove()
 	console.log("nodeEnter.append-svg:g d=",d)
-        self.update(d, true, false);
+        self.update(d, true, false); // not first
       });
 
     nodeEnter.append('svg:circle')
@@ -183,6 +194,7 @@ export class MapperComponent implements OnInit {
     nodeUpdate.transition()
       .duration(self.duration)
       .attr("transform", function (d) {
+         console.log("d.translate y x = ", d)
         return "translate(" + d.y + "," + d.x + ")";
       });
 
@@ -217,6 +229,7 @@ export class MapperComponent implements OnInit {
     let nodeExit = node.exit().transition()
       .duration(self.duration)
       .attr("transform", function (d) {
+        console.log("source.translate y x 2=",source)
         return "translate(" + source.y + "," + source.x + ")";
       })
       .remove();
@@ -229,7 +242,7 @@ export class MapperComponent implements OnInit {
 
 
     let link = self.svg.selectAll('path.link')
-      .data(this.links, function (d) { return d.id; });
+      .data(self.links, function (d) { return d.id; });
 
     link.enter().insert('line', "g")
       .attr("class", "link")
@@ -256,7 +269,7 @@ export class MapperComponent implements OnInit {
       .attr("y2", function (d) { return d.parent.x; })
       .remove();
 
-    this.nodes.forEach(function (d: any) {
+    self.nodes.forEach(function (d: any) {
       d.x0 = d.x;
       d.y0 = d.y;
     });
@@ -280,9 +293,10 @@ export class MapperComponent implements OnInit {
       self.selectedNode = d
       //self.update(d, true, false);
       if (first) {
-        self.update(d, true, true);
+        self.update(d, true, true); // first again?
+        //self.update(d, true, false) // NEVER expands nodes
       } else {
-        self.update(d, true, false)
+        self.update(d, true, false) // not first
       }
     }
   }
@@ -317,11 +331,13 @@ export class MapperComponent implements OnInit {
       id: ++this.lastNodeId,
       //parent: {},
       parent: data, // parent will be current node
-      x: coords[0],
-      x0: coords[0],
+      //x: coords[0],
+      //x0: coords[0],
+      x: 25,
+      x0: 25,
       y: coords[1],
-      y0: coords[1],
-      _children: null
+      y0: coords[1]
+      //_children: null
     };
     console.log("newNode = ", newNode);
     //var newLink = { source: data, target: newNode };
@@ -330,12 +346,12 @@ export class MapperComponent implements OnInit {
     console.log("newNode.parent = ", newNode.parent);
     //if (data.color == 1) newNode.color = 2;
     //else newNode.color = 1;
-    if (data.children) {
+    if (data._children) {
        ;
     } else {
-       data.children = []
+       data._children = []
     }
-    data.children.push(newNode);
+    data._children.push(newNode);
     if (data.data.children) {
        ;
     } else {
@@ -354,7 +370,9 @@ export class MapperComponent implements OnInit {
     //maxDepth = Math.max(maxDepth, newNode.depth);
 
     //this.update(data, true, false)
-    this.update(data.data, true, false) // worked with name ERROR
+    //this.update(data.data, true, false) // worked with name ERROR
+    this.update(newNode, true, false) // not first - do NOT overwrite nodes
+    //this.update(data.data.children[0], true, false) // loads without displying new node
     //this.update(data.data, false, false) // Error: <g> attribute transform: Expected number, "translate(undefined,undefi…"
     //this.update(data, true, true) // no collapse on initial empty node click
     //this.update(data.data, true) //Blows up in update?
