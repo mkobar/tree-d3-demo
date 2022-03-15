@@ -101,9 +101,10 @@ export class MapperComponent implements OnInit {
     let nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
       .attr("transform", function (d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-      .on("click", function (event,d) {
+      .on("click", function (event, d) {
         self.isCollapse = true;
         d3.selectAll("line").remove()
+	console.log("nodeEnter.append-svg:g d=",d)
         self.update(d, true, false);
       });
 
@@ -111,16 +112,23 @@ export class MapperComponent implements OnInit {
       .attr("r", 1e-6)
       .attr("id", function (d) { return 'circle' + d.id })
       .attr("style", "stroke: #0000FF; stroke-width: 3; cursor: pointer")
-      .on('click', function (event,d) { toggle(d); });
+      .on('click', function (event, d) {
+	 console.log("nodeEnter.append-svg:circle d=",d)
+         toggle(d);
+      });
 
     nodeEnter.append("svg:image")
-    .attr("xlink:href", function (d) { return d.data.flag ? "assets/images/flagged-24.png" : null; })
+      .attr("xlink:href", function (d) {
+         return d.data.flag ? "assets/images/flagged-24.png" : null;
+      })
       .attr("x", -5)
       .attr("y", -5)
       .attr("height", 10)
       .attr("width", 10)
       .style("cursor", "pointer")
-      .on('click', function (event,d) { toggle(d); });
+      .on('click', function (event, d) {
+         toggle(d);
+      });
 
     nodeEnter.append("svg:rect")
       .attr('style', 'fill: #c8f26d;')
@@ -135,7 +143,11 @@ export class MapperComponent implements OnInit {
       .style("text-anchor", "start")
       .style("font-size", "9px")
       .style("dominant-baseline", "alphabetic")
-      .text(function (d) { return d.data.name; })
+      .text(function (d) {
+         console.log("d=",d)
+         console.log("d.data.name=",d.data.name)
+         return d.data.name;
+      })
       .style("fill-opacity", 1e-6);
 
     nodeEnter.selectAll('text')
@@ -156,9 +168,15 @@ export class MapperComponent implements OnInit {
         let isText = document.getElementById('text' + d.id).textContent;
         return (isText) ? self.getBox('text' + d.id).getBBox().width + 5 : 0;
       })
-      .attr('height', function (d) { return self.getBox('text' + d.id).getBBox().height + 2; })
-      .attr('x', function (d) { return (self.getBox('text' + d.id).getBBox().x) - 2; })
-      .attr('y', function (d) { return (self.getBox('text' + d.id).getBBox().y); });
+      .attr('height', function (d) {
+         return self.getBox('text' + d.id).getBBox().height + 2;
+      })
+      .attr('x', function (d) {
+         return (self.getBox('text' + d.id).getBBox().x) - 2;
+      })
+      .attr('y', function (d) {
+         return (self.getBox('text' + d.id).getBBox().y);
+      });
 
     let nodeUpdate = nodeEnter.merge(node);
 
@@ -171,6 +189,8 @@ export class MapperComponent implements OnInit {
     nodeUpdate.select('circle')
       .attr("r", (d) => {
         if (selected) {
+          console.log("d.data.name2=",d.data.name)
+          console.log("source.data.name2=",source.data.name)
           if (d.data.name == source.data.name) {
             if (d.visited) {
 	    return 26/4 // not selected?
@@ -182,6 +202,8 @@ export class MapperComponent implements OnInit {
       })
       .style("fill", (d) => {
         if (selected) {
+          console.log("d.data.name3=",d.data.name)
+          console.log("source.data.name3=",source.data.name)
           if (d.data.name == source.data.name) {
             return "purple"
           }
@@ -238,8 +260,10 @@ export class MapperComponent implements OnInit {
       d.x0 = d.x;
       d.y0 = d.y;
     });
+
     function toggle(d) {
       self.clickedEvt(d)
+
       if (d.children) {
         d._children = d.children;
         d.children = null;
@@ -262,6 +286,7 @@ export class MapperComponent implements OnInit {
       }
     }
   }
+
   public selectedNode: any;
   getBox(d: any): any {
     return document.getElementById(d)
@@ -281,7 +306,7 @@ export class MapperComponent implements OnInit {
     var newNode = {
       //children: [],
       data: {
-	name: 'new-node',
+	name: 'new-node-'+(this.lastNodeId+1),
 	flag: false,
 	//children: []
 	visited: false,
@@ -329,7 +354,8 @@ export class MapperComponent implements OnInit {
     //maxDepth = Math.max(maxDepth, newNode.depth);
 
     //this.update(data, true, false)
-    this.update(data.data, true, false)
+    this.update(data.data, true, false) // worked with name ERROR
+    //this.update(data.data, false, false) // Error: <g> attribute transform: Expected number, "translate(undefined,undefi…"
     //this.update(data, true, true) // no collapse on initial empty node click
     //this.update(data.data, true) //Blows up in update?
     //this.update(data, false)
