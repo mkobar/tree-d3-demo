@@ -3,6 +3,7 @@ import { ApiService } from '../../shared/api.service';
 //declare let d3: any;
 //declare let d3: any;
 import * as d3 from 'd3';
+import {parse, stringify} from 'flatted';
 
 @Component({
   selector: 'app-mapper',
@@ -23,12 +24,22 @@ export class MapperComponent implements OnInit {
   i = 0;
   isCollapse: boolean = true;
 
+  //treeData: any;
+  nodes: any;
+  links: any;
+  lastNodeId = 0
+
   constructor(public api: ApiService) { }
 
   ngOnInit() {
     //this.api.getJSON().subscribe(data => {
     this.api.getJSON('car-data.json').subscribe(data => {
-      this.treeData = data;      
+      this.treeData = data;
+
+      //let treeData = self.treemap(self.root);
+      //this.nodes = treeData.descendants();
+      //this.links = treeData.descendants().slice(1);
+
       this.initTree();
     });
     
@@ -49,7 +60,7 @@ export class MapperComponent implements OnInit {
 
     if (this.isCollapse)
       this.root.children.forEach(this.collapse);
-    this.update(this.root, true);
+    this.update(this.root, true, true); // first time
   }
   collapse(d) {
     function collapse(d) {
@@ -66,19 +77,26 @@ export class MapperComponent implements OnInit {
     this.initTree()
   }
 
-  update(source: any, selected: boolean) {
+  update(source: any, selected: boolean, first: boolean) {
     let self = this;
-    let treeData = self.treemap(self.root);
-    let nodes = treeData.descendants();
-    let links = treeData.descendants().slice(1);
 
+    if (first) {
+      //let treeData = self.treemap(self.root);
+      //let nodes = treeData.descendants();
+      //let links = treeData.descendants().slice(1);
+      this.treeData = self.treemap(self.root);
+      this.nodes = this.treeData.descendants();
+      this.links = this.treeData.descendants().slice(1);
+      this.lastNodeId = this.nodes.length
+    }
+    //
     //let sizeBetweenNodes = 270;
     let sizeBetweenNodes = 270;
 
-    nodes.forEach(function (d) { d.y = d.depth * 270 });
+    this.nodes.forEach(function (d) { d.y = d.depth * 270 });
 
     let node = self.svg.selectAll('g.node')
-      .data(nodes, function (d) { return d.id || (d.id = ++self.i); });
+      .data(this.nodes, function (d) { return d.id || (d.id = ++self.i); });
 
     let nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
@@ -86,7 +104,7 @@ export class MapperComponent implements OnInit {
       .on("click", function (event,d) {
         self.isCollapse = true;
         d3.selectAll("line").remove()
-        self.update(d, true);
+        self.update(d, true, false);
       });
 
     nodeEnter.append('svg:circle')
@@ -189,7 +207,7 @@ export class MapperComponent implements OnInit {
 
 
     let link = self.svg.selectAll('path.link')
-      .data(links, function (d) { return d.id; });
+      .data(this.links, function (d) { return d.id; });
 
     link.enter().insert('line', "g")
       .attr("class", "link")
@@ -216,7 +234,7 @@ export class MapperComponent implements OnInit {
       .attr("y2", function (d) { return d.parent.x; })
       .remove();
 
-    nodes.forEach(function (d: any) {
+    this.nodes.forEach(function (d: any) {
       d.x0 = d.x;
       d.y0 = d.y;
     });
@@ -236,7 +254,12 @@ export class MapperComponent implements OnInit {
         }
       }
       self.selectedNode = d
-      self.update(d, true);
+      //self.update(d, true, false);
+      if (first) {
+        self.update(d, true, true);
+      } else {
+        self.update(d, true, false)
+      }
     }
   }
   public selectedNode: any;
@@ -246,5 +269,69 @@ export class MapperComponent implements OnInit {
 
   clickedEvt(data: any) {
     console.log("Clicked Data MC: ", data);
+
+    if (data.data.children) {
+	    return
+    } else {
+    //var coords = d3.mouse(event.currentTarget);
+    //var coords = d3.pointer(event.currentTarget);
+    var coords = d3.pointer(event);
+    console.log("coords = ",coords);
+
+    var newNode = {
+      //children: [],
+      data: {
+	name: 'new-node',
+	//flag: false,
+	//children: []
+	visited: false,
+	size: 123
+      },
+      depth: data.depth + 1,
+      height: 2,
+      id: ++this.lastNodeId,
+      //parent: {},
+      parent: data,
+      x: coords[0],
+      x0: coords[0],
+      y: coords[1],
+      y0: coords[1],
+      _children: null
+    };
+    console.log("newNode = ", newNode);
+    //var newLink = { source: data, target: newNode };
+    var newLink = newNode
+    //newNode.parent = newLink;
+    console.log("newNode.parent = ", newNode.parent);
+    //if (data.color == 1) newNode.color = 2;
+    //else newNode.color = 1;
+    if (data.children) {
+       ;
+    } else {
+       data.children = []
+    }
+    data.children.push(newNode);
+    if (data.data.children) {
+       ;
+    } else {
+       data.data.children = []
+    }
+    data.data.children.push(newNode);
+    console.log("data.children = ", data.data.children);
+    this.nodes.push(newNode);
+    console.log("nodes = ", this.nodes);
+    this.links.push(newLink);
+    console.log("links = ", this.links);
+    //console.log(JSON.stringify(this.links));
+    //var str = JSON.stringify(this.links);
+    var str = stringify(this.links);
+    console.log(str);
+    //maxDepth = Math.max(maxDepth, newNode.depth);
+
+    this.update(data, true, false)
+    //this.update(data.data, true) Blows up in update
+    //this.update(data, false)
+    console.log("update complete")
+    }
   }
 }
