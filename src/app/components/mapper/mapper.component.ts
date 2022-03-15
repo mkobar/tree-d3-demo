@@ -282,7 +282,7 @@ export class MapperComponent implements OnInit {
       //children: [],
       data: {
 	name: 'new-node',
-	//flag: false,
+	flag: false,
 	//children: []
 	visited: false,
 	size: 123
@@ -291,7 +291,7 @@ export class MapperComponent implements OnInit {
       height: 2,
       id: ++this.lastNodeId,
       //parent: {},
-      parent: data,
+      parent: data, // parent will be current node
       x: coords[0],
       x0: coords[0],
       y: coords[1],
@@ -328,8 +328,10 @@ export class MapperComponent implements OnInit {
     console.log(str);
     //maxDepth = Math.max(maxDepth, newNode.depth);
 
-    this.update(data, true, false)
-    //this.update(data.data, true) Blows up in update
+    //this.update(data, true, false)
+    this.update(data.data, true, false)
+    //this.update(data, true, true) // no collapse on initial empty node click
+    //this.update(data.data, true) //Blows up in update?
     //this.update(data, false)
     console.log("update complete")
     }
