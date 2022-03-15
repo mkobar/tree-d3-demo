@@ -27,7 +27,7 @@ export class MapperComponent implements OnInit {
   //treeData: any;
   nodes: any;
   links: any;
-  lastNodeId = 0
+  lastNodeId = 30
 
   constructor(public api: ApiService) { }
 
@@ -95,7 +95,7 @@ export class MapperComponent implements OnInit {
       self.treeData = self.treemap(self.root);
       self.nodes = self.treeData.descendants();
       self.links = self.treeData.descendants().slice(1);
-      self.lastNodeId = self.nodes.length
+      //self.lastNodeId = self.nodes.length
     }
     //
     //let sizeBetweenNodes = 270;
@@ -155,7 +155,7 @@ export class MapperComponent implements OnInit {
       .style("font-size", "9px")
       .style("dominant-baseline", "alphabetic")
       .text(function (d) {
-         console.log("d=",d)
+         console.log("d.id=",d.id)
          console.log("d.data.name=",d.data.name)
          return d.data.name;
       })
@@ -201,11 +201,11 @@ export class MapperComponent implements OnInit {
     nodeUpdate.select('circle')
       .attr("r", (d) => {
         if (selected) {
-          console.log("d.data.name2=",d.data.name)
-          console.log("source.data.name2=",source.data.name)
+          //console.log("d.data.name2=",d.data.name)
+          //console.log("source.data.name2=",source.data.name)
           if (d.data.name == source.data.name) {
             if (d.visited) {
-	    return 26/4 // not selected?
+	       return 26/4 // not selected?
             }
 	    return 40/4  // selected
           }
@@ -214,8 +214,8 @@ export class MapperComponent implements OnInit {
       })
       .style("fill", (d) => {
         if (selected) {
-          console.log("d.data.name3=",d.data.name)
-          console.log("source.data.name3=",source.data.name)
+          //console.log("d.data.name3=",d.data.name)
+          //console.log("source.data.name3=",source.data.name)
           if (d.data.name == source.data.name) {
             return "purple"
           }
