@@ -1,0 +1,133 @@
+{
+    "name": "A1-Cats",
+    "flag": false,
+    "usechildren": [
+        {
+            "name": "test"
+        }
+    ],
+    "children": [
+        {
+            "name": "B1-Adoption",
+            "flag": true,
+	    "visited": true,
+            "children": [
+                {
+                    "name": "C1",
+                    "visited": true,
+                    "size": 3534,
+                    "flag": false
+                },
+                {
+                    "name": "C2",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C3-Black Cats",
+                    "flag": false,
+                    "children": [
+                        {
+                            "name": "D1-Tabby Cats",
+                            "size": 3534,
+                            "flag": true,
+                            "visited": true
+                        },
+                        {
+                            "name": "D2",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D3",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D4-Kittens",
+                            "children": [
+                                {
+                                    "name": "E1-how to feed",
+                                    "size": 3534,
+                                    "flag": true,
+				    "visited": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+	    ]
+        },
+	{
+            "name": "B2-Tomcats",
+            "children": [
+                {
+                    "name": "C4",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C5-Tabby Cats",
+                    "children": [
+                        {
+                            "name": "D5-White Cats",
+                            "size": 3534
+                        },
+                        {
+                            "name": "D6-Tigers",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D7",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D8-Cat things",
+                            "children": [
+                                {
+                                    "name": "E2-Toys",
+                                    "size": 3534
+                                }
+                            ]
+                        }
+                    ]
+                }
+	   ]
+        },
+	{
+            "name": "B3-Old Cats",
+            "children": [
+                {
+                    "name": "C6-Vets for cats",
+                    "visited": true,
+                    "size": 3534
+                },
+                {
+                    "name": "C7-Food for cats",
+                    "children": [
+                        {
+                            "name": "D9-Canned food",
+                            "size": 3534
+                        },
+                        {
+                            "name": "D10-Fresh food",
+                            "visited": true,
+                            "size": 3534
+                        },
+                        {
+                            "name": "D11-Treats",
+                            "children": [
+                                {
+                                    "name": "E3-Catnip",
+                                    "size": 3534
+                                }
+                            ]
+                        }
+                    ]
+                }
+	   ]
+        }
+    ]
+}
