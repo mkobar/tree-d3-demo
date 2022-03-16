@@ -317,27 +317,28 @@ export class MapperComponent implements OnInit {
     var coords = d3.pointer(event);
     console.log("coords = ",coords);
 
+    // WARNING: circular structure - in 3 children structs
     var newNode = {
-      //children: [],
+      //children: [],  // used to display children of node
       data: {
 	name: 'new-node-'+(this.lastNodeId+1),
-	flag: false,
-	//children: []
+	flag: false, // for flag icon
+	//children: [] // are these children the same as outside of data?
 	visited: false,
-	size: 123
+	size: 123 // not used
       },
-      depth: data.depth + 1,
-      height: 2,
-      id: ++this.lastNodeId,
+      depth: data.depth + 1, // child will be +1 of parent/current node
+      height: 2, // not used?
+      id: ++this.lastNodeId,  // should be unique
       //parent: {},
       parent: data, // parent will be current node
       //x: coords[0],
       //x0: coords[0],
-      x: 25,
-      x0: 25,
+      x: 25,  // need to fix as they cause new child node to zoom in from the left
+      x0: 25,  // need to fix as they cause new child node to zoom in from the left
       y: coords[1],
       y0: coords[1]
-      //_children: null
+      //_children: null // used to store collapsed children of node
     };
     console.log("newNode = ", newNode);
     //var newLink = { source: data, target: newNode };
