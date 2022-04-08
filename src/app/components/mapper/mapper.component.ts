@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
-//declare let d3: any;
+import { ActiveMapService } from '../../shared/activemap.service';
+import { Subscription } from 'rxjs/Subscription' // eslint-disable-line no-unused-vars
 //declare let d3: any;
 import * as d3 from 'd3';
 import {parse, stringify} from 'flatted';
@@ -12,7 +13,10 @@ import {parse, stringify} from 'flatted';
 })
 
 export class MapperComponent implements OnInit {
-  treeData: any
+  //@Input() mapStatus: any
+  subscription!: Subscription
+  mapStatus: any
+  //treeData: any
   //margin = { top: 20, right: 120, bottom: 20, left: 120 };
   margin = { top: 20, right: 20, bottom: 20, left: 30 };
   width = 1400 - this.margin.left - this.margin.right;
@@ -25,26 +29,116 @@ export class MapperComponent implements OnInit {
   isCollapse: boolean = true;
 
   //treeData: any;
-  nodes: any;
-  links: any;
+  //nodes: any;
+  //links: any;
   lastNodeId = 30
 
-  constructor(public api: ApiService) { }
+  constructor(public api: ApiService,
+	      public amap: ActiveMapService) {
+    // Called first time before the ngOnInit()
+    // typescript
+    // Important to note that @Input values are not accessible in the constructor
+  }
 
+
+  /**
   ngOnInit() {
+    // Called after the constructor and called after the first ngOnChanges()    // angular! 
+
     //this.api.getJSON().subscribe(data => {
-    this.api.getJSON('car-data.json').subscribe(data => {
-      this.treeData = data;
+    //this.api.getJSON('car-data.json').subscribe(data => {
+      //this.treeData = data;
 
       //let treeData = self.treemap(self.root);
       //this.nodes = treeData.descendants();
       //this.links = treeData.descendants().slice(1);
 
-      this.initTree();
-    });
-    
+      //this.initTree();
+    //});
+      
+      //this.mapStatus = this.amap.getMap('cars')
+
+      this.mapStatus = this.amap.getMap() 
+      console.log("mapper:mapStatus = ", this.mapStatus) 
+      this.initTree(this.mapStatus);
   }
-  initTree() {
+  **/
+
+  ngOnInit () {
+    // FIXME nested subscribes
+    this.subscription = this.amap.mapItem$
+        .subscribe(activeMap => {
+          console.log('in mapper.component ngOnInit()')
+          this.mapStatus = activeMap // does not work?
+          console.log('mapStatus: ', this.mapStatus)
+          //this.mapStatus = this.amap.getMap()
+        
+	 /*** just for pre-load testing 
+        this.api.getJSON('car-data.json').subscribe(data => {
+          //this.mapData[0].treeData = data;
+          this.mapStatus = { name: 'cars', treeData: data, nodes: null,
+		  links: null, lastNodeId: 0 }
+          //console.log('mapData[0]=', this.mapData[0])
+          //this.mapSetting = this.mapData[0] // default
+          //this.amap.setMap(this.mapData[0])
+	
+          console.log('mapStatus: ', this.mapStatus)
+          //let treeData = this.treemap(this.root)
+          //this.mapStatus.nodes = this.mapStatus.treeData.descendants()
+          //this.mapStatus.links = this.mapStatus.treeData.descendants().slice(1)
+	  //this.mapStatus.lastNodeId = this.mapStatus.nodes.length
+          this.initTree(this.mapStatus)
+        });
+       ***/
+
+	/***	
+          console.log('mapStatus: ', this.mapStatus)
+          //let treeData = this.treemap(this.root);
+          this.mapStatus.nodes = this.mapStatus.treeData.descendants();
+          this.mapStatus.links = this.mapStatus.treeData.descendants().slice(1);
+	 ***/
+	  if (this.mapStatus.name != 'empty') {
+	    if (this.mapStatus.lastNodeId === 0) {
+              this.initTree(this.mapStatus, true) // first time
+	    } else {
+              // need to remove old svg ang build new one
+              //d3.select("#tree").select("svg").remove() // clean old svg
+              //this.update(this.root, true, false) // first time
+              this.initTree(this.mapStatus, false) // NOT first time
+	    }
+	  }
+    }) // sub
+
+    /**
+    if (this.activeQuery.id === '0') {
+      // detect default selectedQuery here
+      for (const q of this.queries) { // of returns objects, in returns ints
+        console.log(q.name, q.status)
+        if (q.status === this.tabStatus) {
+          this.selectedQuery = q
+          this.selectQuery(q) // force results to load on start
+          console.log(q.name, this.selectedQuery.name)
+          return
+        }
+      }
+    } else {
+      console.log('what to do now?')
+      this.selectQuery(this.activeQuery) // force results to load on start
+      console.log(this.activeQuery.name, this.selectedQuery.name)
+    }
+    **/
+  }
+
+  ngOnDestroy () {
+    // prevent memory leak when component is destroyed
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+  }
+
+
+
+  initTree(map: any, firstTime: boolean) {
     d3.select("#tree").select("svg").remove();
 
     this.svg = d3.select("#tree").append("svg")
@@ -54,13 +148,15 @@ export class MapperComponent implements OnInit {
       .attr("transform", "translate("
         + this.margin.left + "," + this.margin.top + ")");
     
-    this.root = d3.hierarchy(this.treeData, function (d) { return d.children; });
+    //this.root = d3.hierarchy(this.treeData, function (d) { return d.children; });
+    this.root = d3.hierarchy(map.treeData, function (d) { return d.children; });
     this.root.x0 = this.height / 2; // in middle
     this.root.y0 = 0;
 
     if (this.isCollapse)
       this.root.children.forEach(this.collapse);
-    this.update(this.root, true, true); // first time
+    //this.update(this.root, true, true); // first time
+    this.update(this.root, true, firstTime); // first time
   }
   collapse(d) {
     function collapse(d) {
@@ -72,16 +168,20 @@ export class MapperComponent implements OnInit {
     }
     collapse(d)
   }
+
+  /** not used? 
   expandCollapse() {
     this.isCollapse = !this.isCollapse;
     this.initTree()
   }
+  **/
 
   update(source: any, selected: boolean, first: boolean) {
     console.log("UPDATE with first =", first)
     console.log("source.translate y0 x0 0= ", source)
 
     let self = this;
+    let selfmap = this.mapStatus;
 
     if (first) {
       //let treeData = self.treemap(self.root);
@@ -92,19 +192,21 @@ export class MapperComponent implements OnInit {
       //this.nodes = this.treeData.descendants();
       //this.links = this.treeData.descendants().slice(1);
       //this.lastNodeId = this.nodes.length
-      self.treeData = self.treemap(self.root);
-      self.nodes = self.treeData.descendants();
-      self.links = self.treeData.descendants().slice(1);
+      //self.treeData = self.treemap(self.root);
+      selfmap.treeData = self.treemap(self.root);
+      selfmap.nodes = selfmap.treeData.descendants();
+      selfmap.links = selfmap.treeData.descendants().slice(1);
       //self.lastNodeId = self.nodes.length
+      selfmap.lastNodeId = selfmap.nodes.length
     }
     //
     //let sizeBetweenNodes = 270;
     let sizeBetweenNodes = 270;
 
-    self.nodes.forEach(function (d) { d.y = d.depth * 270 });
+    selfmap.nodes.forEach(function (d) { d.y = d.depth * 270 });
 
     let node = self.svg.selectAll('g.node')
-      .data(self.nodes, function (d) { return d.id || (d.id = ++self.i); });
+      .data(selfmap.nodes, function (d) { return d.id || (d.id = ++self.i); });
 
     let nodeEnter = node.enter().append('svg:g')
       .attr('class', 'node')
@@ -242,7 +344,7 @@ export class MapperComponent implements OnInit {
 
 
     let link = self.svg.selectAll('path.link')
-      .data(self.links, function (d) { return d.id; });
+      .data(selfmap.links, function (d) { return d.id; });
 
     link.enter().insert('line', "g")
       .attr("class", "link")
@@ -269,7 +371,7 @@ export class MapperComponent implements OnInit {
       .attr("y2", function (d) { return d.parent.x; })
       .remove();
 
-    self.nodes.forEach(function (d: any) {
+    selfmap.nodes.forEach(function (d: any) {
       d.x0 = d.x;
       d.y0 = d.y;
     });
@@ -309,12 +411,12 @@ export class MapperComponent implements OnInit {
   clickedEvt(data: any) {
     console.log("Clicked Data MC: ", data);
 
-    if (data.data.children) {
+    if (data.data.children) {  // do not add if child exists
 	    return
     } else {
     //var coords = d3.mouse(event.currentTarget);
     //var coords = d3.pointer(event.currentTarget);
-    var coords = d3.pointer(event);
+    var coords = d3.pointer(event); // grab click x,y location
     console.log("coords = ",coords);
 
     // WARNING: circular structure - in 3 children structs
@@ -360,6 +462,7 @@ export class MapperComponent implements OnInit {
     }
     data.data.children.push(newNode);
     console.log("data.children = ", data.data.children);
+    /**
     this.nodes.push(newNode);
     console.log("nodes = ", this.nodes);
     this.links.push(newLink);
@@ -367,6 +470,13 @@ export class MapperComponent implements OnInit {
     //console.log(JSON.stringify(this.links));
     //var str = JSON.stringify(this.links);
     var str = stringify(this.links);
+    **/
+    this.mapStatus.nodes.push(newNode);
+    console.log("nodes = ", this.mapStatus.nodes);
+    this.mapStatus.links.push(newLink);
+    console.log("links = ", this.mapStatus.links);
+    var str = stringify(this.mapStatus.links); // circular struct!
+
     console.log(str);
     //maxDepth = Math.max(maxDepth, newNode.depth);
 
