@@ -16,17 +16,19 @@ export class MapperComponent implements OnInit {
   //@Input() mapStatus: any
   subscription!: Subscription
   mapStatus: any
-  //treeData: any
+  treeData: any
   //margin = { top: 20, right: 120, bottom: 20, left: 120 };
   margin = { top: 20, right: 20, bottom: 20, left: 30 };
   width = 1400 - this.margin.left - this.margin.right;
   height = 300 - this.margin.top - this.margin.bottom;
   svg: any;
-  root: any;
+  //root: any;
   treemap = d3.tree().size([this.height, this.width]);
   duration = 350;
   i = 0;
   isCollapse: boolean = true;
+
+  public selectedNode: any;
 
   //treeData: any;
   //nodes: any;
@@ -69,7 +71,7 @@ export class MapperComponent implements OnInit {
     this.subscription = this.amap.mapItem$
         .subscribe(activeMap => {
           console.log('in mapper.component ngOnInit()')
-          this.mapStatus = activeMap // does not work?
+          this.mapStatus = activeMap
           console.log('mapStatus: ', this.mapStatus)
           //this.mapStatus = this.amap.getMap()
         
@@ -104,7 +106,8 @@ export class MapperComponent implements OnInit {
               // need to remove old svg ang build new one
               //d3.select("#tree").select("svg").remove() // clean old svg
               //this.update(this.root, true, false) // first time
-              this.initTree(this.mapStatus, false) // NOT first time
+              //this.initTree(this.mapStatus, false) // NOT first time
+              this.restoreTree(this.mapStatus, false) // NOT first time
 	    }
 	  }
     }) // sub
@@ -149,15 +152,44 @@ export class MapperComponent implements OnInit {
         + this.margin.left + "," + this.margin.top + ")");
     
     //this.root = d3.hierarchy(this.treeData, function (d) { return d.children; });
-    this.root = d3.hierarchy(map.treeData, function (d) { return d.children; });
-    this.root.x0 = this.height / 2; // in middle
-    this.root.y0 = 0;
+    map.root = d3.hierarchy(map.jsonTreeData, function (d) { return d.children; });
+    //this.root.x0 = this.height / 2; // in middle
+    //this.root.y0 = 0;
+    map.root.x0 = this.height / 2; // in middle
+    map.root.y0 = 0;
+    map.selectedNode = map.root // MUST assign selected node
 
     if (this.isCollapse)
-      this.root.children.forEach(this.collapse);
+      map.root.children.forEach(this.collapse);
     //this.update(this.root, true, true); // first time
-    this.update(this.root, true, firstTime); // first time
+    this.update(map.root, true, firstTime); // first time
   }
+
+  restoreTree(map: any, firstTime: boolean) {
+    d3.select("#tree").select("svg").remove();
+
+    this.svg = d3.select("#tree").append("svg")
+      .attr("width", this.width + this.margin.right + this.margin.left)
+      .attr("height", this.height + this.margin.top + this.margin.bottom)
+      .append("g")
+      .attr("transform", "translate("
+        + this.margin.left + "," + this.margin.top + ")");
+    
+    //this.root = d3.hierarchy(this.treeData, function (d) { return d.children; });
+    //this.root = d3.hierarchy(map.treeData, function (d) { return d.children; });
+    //this.root.x0 = this.height / 2; // in middle
+    //this.root.y0 = 0;
+
+    if (this.isCollapse)
+      //this.root.children.forEach(this.collapse);
+      //map.root.children.forEach(this.collapse);
+      map.selectedNode.children.forEach(this.collapse);
+    //this.update(this.root, true, true); // first time
+    //this.update(map.root, true, firstTime); // first time
+    this.update(map.selectedNode, true, firstTime); // first time
+  }
+
+
   collapse(d) {
     function collapse(d) {
       if (d.children) {
@@ -184,6 +216,7 @@ export class MapperComponent implements OnInit {
     let selfmap = this.mapStatus;
 
     if (first) {
+	    console.log("update first")
       //let treeData = self.treemap(self.root);
       //let nodes = treeData.descendants();
       //let links = treeData.descendants().slice(1);
@@ -193,11 +226,14 @@ export class MapperComponent implements OnInit {
       //this.links = this.treeData.descendants().slice(1);
       //this.lastNodeId = this.nodes.length
       //self.treeData = self.treemap(self.root);
-      selfmap.treeData = self.treemap(self.root);
-      selfmap.nodes = selfmap.treeData.descendants();
-      selfmap.links = selfmap.treeData.descendants().slice(1);
+      //selfmap.treeData = self.treemap(self.root);
+      self.treeData = self.treemap(selfmap.root);
+      selfmap.nodes = self.treeData.descendants();
+      selfmap.links = self.treeData.descendants().slice(1);
       //self.lastNodeId = self.nodes.length
       selfmap.lastNodeId = selfmap.nodes.length
+    } else {
+	    console.log("update NOT first")
     }
     //
     //let sizeBetweenNodes = 270;
@@ -392,18 +428,24 @@ export class MapperComponent implements OnInit {
           d.children.forEach(self.collapse)
         }
       }
-      self.selectedNode = d
+
+
+      //self.selectedNode = d // why?
+      //this.mapStatus.selectedNode = d // why?
+      selfmap.selectedNode = d // assign selected node
+
       //self.update(d, true, false);
       if (first) {
         self.update(d, true, true); // first again?
         //self.update(d, true, false) // NEVER expands nodes
       } else {
-        self.update(d, true, false) // not first
+        //DEBUG self.update(d, true, false) // not first
+        self.update(d, true, true) // not first
       }
     }
   }
 
-  public selectedNode: any;
+
   getBox(d: any): any {
     return document.getElementById(d)
   }
@@ -460,7 +502,7 @@ export class MapperComponent implements OnInit {
     } else {
        data.data.children = []
     }
-    data.data.children.push(newNode);
+    data.data.children.push(newNode); // root data!
     console.log("data.children = ", data.data.children);
     /**
     this.nodes.push(newNode);
