@@ -30,6 +30,11 @@
             </ngb-tab>
         </ngb-tabset>
 	-->
+	<div *ngFor="let b of buttons; let i = index">
+	   <button class="btn btn-outline-secondary float-right-button " placement="right" (click)="selectMap(b)">
+		   {{b}}
+           </button>
+	</div>
     </div>
     <div class="MiddleContainer">
         <div class="Search">
@@ -40,7 +45,10 @@
         <div class="Map">
             <!-- map -->
             <div class="Map2 col-10 border border-primary">
-                <app-mapper></app-mapper>
+		    <app-mapper> </app-mapper>
+		    <!--
+		    <app-mapper [mapStatus]=mapSetting > </app-mapper>
+		    -->
             </div>
             <div class="ExtraButtons2">
                 <!-- extra-buttons -->
