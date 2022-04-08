@@ -12,12 +12,12 @@ export class ActiveMapService {
 
     private mapChange = new BehaviorSubject<any>(
       { name: 'empty', treeData: 'data', nodes: 'nodes', links: 'links',
-          lastNodeId: 0 })
+          lastNodeId: 0, root: null, selectedNode: null })
 
 
     private emptyMap: any = 
       { name: 'empty', treeData: 'data', nodes: 'nodes', links: 'links',
-          lastNodeId: 0 }
+          lastNodeId: 0, root: null, selectedNode: null }
 
     //constructor() { }
 
