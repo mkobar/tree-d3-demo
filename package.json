@@ -35,7 +35,7 @@
     "@angular/compiler-cli": "13.3.3",
     "@angular/language-service": "13.3.3",
     "@types/d3": "7.1.0",
-    "@types/jasmine": "4.0.2",
+    "@types/jasmine": "4.0.3",
     "@types/jasminewd2": "2.0.10",
     "@types/node": "14.18.12",
     "angular-cli-ghpages": "1.0.0",
