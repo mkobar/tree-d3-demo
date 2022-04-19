@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --configuration production --base-href /tree-d3-demo/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent"
+    "deploy": "ng build --configuration production --base-href /tree-d3-demo/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent",
+    "deploy2": "ng build --configuration=production --base-href /tree-d3-demo-ui/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent --repo=https://GH_TOKEN@github.com/isearch-gp/tree-d3-demo-ui.git"
   },
   "private": true,
   "dependencies": {
