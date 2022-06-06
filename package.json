@@ -12,6 +12,10 @@
     "deploy2": "ng build --configuration=production --base-href /tree-d3-demo-ui/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent --repo=https://GH_TOKEN@github.com/isearch-gp/tree-d3-demo-ui.git"
   },
   "private": true,
+    "engines": {
+    "node": "16.15.1",
+    "npm": "8.11.0"
+  },
   "dependencies": {
     "@angular/animations": "13.3.11",
     "@angular/common": "13.3.11",
