@@ -1,3 +1,4 @@
+// tree-d3-demo
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 import { ActiveMapService } from '../../shared/activemap.service';
@@ -14,9 +15,9 @@ import {parse, stringify} from 'flatted';
 
 export class MapperComponent implements OnInit {
   //@Input() mapStatus: any
-  subscription!: Subscription
   mapStatus: any
   treeData: any
+  //
   //margin = { top: 20, right: 120, bottom: 20, left: 120 };
   margin = { top: 20, right: 20, bottom: 20, left: 30 };
   width = 1400 - this.margin.left - this.margin.right;
@@ -30,10 +31,11 @@ export class MapperComponent implements OnInit {
 
   public selectedNode: any;
 
-  //treeData: any;
   //nodes: any;
   //links: any;
   lastNodeId = 30
+
+  subscription!: Subscription
 
   constructor(public api: ApiService,
 	      public amap: ActiveMapService) {
