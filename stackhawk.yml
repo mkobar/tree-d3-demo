@@ -1,14 +1,19 @@
-# -- stackhawk configuration for tree-d3 --
+# -- stackhawk configuration for tree2 --
 app:
   # -- An applicationId obtained from the StackHawk platform. --
-  applicationId: 94068d17-e567-4f89-b505-62115e83333d # (required)
+  applicationId: 6d139d55-28f9-4727-90ae-f16eff707c84 # (required)
   # -- The environment for the applicationId defined in the StackHawk platform. --
   env: Development # (required)
   # -- The url of your application to scan --
-  host: http://localhost:4200 # (required)
+  host: http://127.0.0.1:4200 # (required)
 
 
 # -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
+  # openApiConf:
+  #   path: /swagger.json # OR...
+#       filePath: openApi.json
+  # autoPolicy: true
+  # autoInputVectors: true
   # Configuration Docs: https://docs.stackhawk.com/hawkscan/configuration/
 
 # -- If Authenticated Scanning is needed, add here --
