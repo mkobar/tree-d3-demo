@@ -5,7 +5,8 @@ app:
   # -- The environment for the applicationId defined in the StackHawk platform. --
   env: Development # (required)
   # -- The url of your application to scan --
-  host: http://127.0.0.1:4200 # (required)
+  #host: http://127.0.0.1:4200 # (required)
+  host: https://mkobar.github.io/tree-d3-demo/
 
 
 # -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
