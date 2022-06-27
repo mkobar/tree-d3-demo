@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './shared/api.service';
-import { ActiveMapService } from './shared/activemap.service';
+import { ActiveMapService } from './shared/active-map.service';
 
 @Component({
   selector: 'app-root',

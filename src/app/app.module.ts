@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 
 import { ApiService } from "./shared/api.service";
-import { MapperComponent } from './components/mapper/mapper.component';
+import { MaprComponent } from './components/mapr/mapr.component';
 //import { TreeReportComponent } from './components/tree-report/tree-report.component';
 @NgModule({
   declarations: [
     AppComponent,
 //    TreeReportComponent,
-    MapperComponent
+    MaprComponent
   ],
   imports: [
     BrowserModule,

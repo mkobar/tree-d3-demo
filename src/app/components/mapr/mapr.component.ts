@@ -1,7 +1,7 @@
 // tree-d3-demo
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
-import { ActiveMapService } from '../../shared/activemap.service';
+import { ActiveMapService } from '../../shared/active-map.service';
 import { Subscription } from 'rxjs/Subscription' // eslint-disable-line no-unused-vars
 //declare let d3: any;
 import * as d3 from 'd3';
