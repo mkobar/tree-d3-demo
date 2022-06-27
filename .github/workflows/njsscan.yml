@@ -1,3 +1,4 @@
+# output not saved
 name: njsscan
 on:
   push:
