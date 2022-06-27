@@ -9,11 +9,11 @@ import {parse, stringify} from 'flatted';
 
 @Component({
   selector: 'app-mapper',
-  templateUrl: './mapper.component.html',
-  styleUrls: ['./mapper.component.css']
+  templateUrl: './mapr.component.html',
+  styleUrls: ['./mapr.component.css']
 })
 
-export class MapperComponent implements OnInit {
+export class MaprComponent implements OnInit {
   //@Input() mapStatus: any
   mapStatus: any
   treeData: any
