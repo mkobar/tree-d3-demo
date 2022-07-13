@@ -54,7 +54,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.0.0",
     "npm": "8.7.0",
-    "npm-registry-fetch": "13.1.1",
+    "npm-registry-fetch": "13.2.0",
     "protractor": "7.0.0",
     "protractor-jasmine2-screenshot-reporter": "0.5.0",
     "ts-node": "10.8.2",
