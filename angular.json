@@ -42,7 +42,31 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": true, // false for debug
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true, // false for debug?
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+	    "dev": {
+              "fileReplacements": [
+              ],
+              "optimization": false, // for debug
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -55,11 +79,6 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
                 }
               ]
             }
@@ -73,6 +92,9 @@
           "configurations": {
             "production": {
               "browserTarget": "tree-d3-demo:build:production"
+            },
+	    "dev": {
+              "browserTarget": "tree-d3-demo:build:dev"
             }
           }
         },
@@ -121,6 +143,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "tree-d3-demo:serve:production"
+            },
+	    "dev": {
+              "devServerTarget": "tree-d3-demo:serve:dev"
             }
           }
         }
