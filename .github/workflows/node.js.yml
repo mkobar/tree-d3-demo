@@ -19,9 +19,9 @@ jobs:
     - uses: browser-actions/setup-chrome@latest
     #- run: chrome --version
     - name: Run headless test
-    uses: GabrielBB/xvfb-action@v1
-    with:
-      run: npm test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: npm test
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
