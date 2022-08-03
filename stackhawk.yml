@@ -1,7 +1,8 @@
 # -- stackhawk configuration for tree2 --
 app:
   # -- An applicationId obtained from the StackHawk platform. --
-  applicationId: 6d139d55-28f9-4727-90ae-f16eff707c84 # (required)
+  #old one - applicationId: 6d139d55-28f9-4727-90ae-f16eff707c84 # (required)
+  applicationId: 94068d17-e567-4f89-b505-62115e83333d # tree-d3 (required)
   # -- The environment for the applicationId defined in the StackHawk platform. --
   env: Development # (required)
   # -- The url of your application to scan --
