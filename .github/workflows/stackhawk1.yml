@@ -27,7 +27,7 @@
 #     start your service so that it can be scanned with the "Run HawkScan" step.
 
 
-name: "StackHawk"
+name: "StackHawk1"
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for stackhawk/hawkscan-action to upload code scanning alert info
-    name: StackHawk
+    name: StackHawk1
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
