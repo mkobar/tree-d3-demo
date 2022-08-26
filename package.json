@@ -40,7 +40,7 @@
     "@angular/compiler-cli": "14.2.0",
     "@angular/language-service": "14.2.0",
     "@types/d3": "7.4.0",
-    "@types/jasmine": "4.0.3",
+    "@types/jasmine": "4.3.0",
     "@types/jasminewd2": "2.0.10",
     "@types/node": "16.11.47",
     "angular-cli-ghpages": "1.0.3",
