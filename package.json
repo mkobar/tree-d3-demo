@@ -14,7 +14,7 @@
   },
   "private": true,
   "engines": {
-    "node": "16.17.0",
+    "node": "16.18.0",
     "npm": "8.18.0"
   },
   "dependencies": {
@@ -43,7 +43,7 @@
     "@types/d3": "7.4.0",
     "@types/jasmine": "4.3.0",
     "@types/jasminewd2": "2.0.10",
-    "@types/node": "16.11.59",
+    "@types/node": "16.18.3",
     "angular-cli-ghpages": "1.0.3",
     "codelyzer": "6.0.2",
     "jasmine-core": "4.5.0",
