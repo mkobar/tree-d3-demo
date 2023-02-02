@@ -55,7 +55,7 @@ jobs:
         run: ./your-service.sh &                  # ✏️ Update this to run your own service to be scanned
 
       - name: Run HawkScan
-        uses: stackhawk/hawkscan-action@185a7479d1dbbc70720a27997de6cc2af8767440
+        uses: stackhawk/hawkscan-action@c68e1691f3d9b4f4453f0cfa85d874b0324b5c93
         continue-on-error: true                   # ✏️ Set to false to break your build on scan errors
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
