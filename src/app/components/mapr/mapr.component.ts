@@ -186,7 +186,9 @@ export class MaprComponent implements OnInit {
     if (this.isCollapse)
       //this.root.children.forEach(this.collapse);
       //map.root.children.forEach(this.collapse);
-      map.selectedNode.children.forEach(this.collapse);
+      if (map.selectedNode.children) {
+         map.selectedNode.children.forEach(this.collapse);
+      }
     //this.update(this.root, true, true); // first time
     //this.update(map.root, true, firstTime); // first time
     this.update(map.selectedNode, true, firstTime); // first time
