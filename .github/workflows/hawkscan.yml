@@ -10,6 +10,6 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v3
       - name: Run HawkScan
-        uses: stackhawk/hawkscan-action@v2.0.2
+        uses: stackhawk/hawkscan-action@v2.0.3
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
