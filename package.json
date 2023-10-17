@@ -55,7 +55,7 @@
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "5.1.0",
     "npm": "8.19.3",
-    "npm-registry-fetch": "16.0.0",
+    "npm-registry-fetch": "16.1.0",
     "protractor": "7.0.0",
     "protractor-jasmine2-screenshot-reporter": "0.5.1",
     "ts-node": "10.9.1",
