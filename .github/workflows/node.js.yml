@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy: 
         matrix:
-            node-version: [18.x]
+            #node-version: [18.x]
+            node-version: [18.18.2]
     steps:
     - uses: browser-actions/setup-chrome@latest
     #- run: chrome --version
