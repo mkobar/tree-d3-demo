@@ -43,7 +43,7 @@
     "@angular/language-service": "16.2.10",
     "@types/d3": "7.4.1",
     "@types/jasmine": "5.1.1",
-    "@types/jasminewd2": "2.0.12",
+    "@types/jasminewd2": "2.0.13",
     "@types/node": "18.18.8",
     "angular-cli-ghpages": "1.0.7",
     "codelyzer": "6.0.2",
