@@ -58,7 +58,7 @@
     "npm-registry-fetch": "16.1.0",
     "protractor": "7.0.0",
     "protractor-jasmine2-screenshot-reporter": "0.5.1",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "tslint": "6.1.3",
     "typescript": "5.0.4"
   }
