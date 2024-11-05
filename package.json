@@ -44,7 +44,7 @@
     "@types/d3": "7.4.1",
     "@types/jasmine": "5.1.4",
     "@types/jasminewd2": "2.0.13",
-    "@types/node": "18.19.63",
+    "@types/node": "18.19.64",
     "angular-cli-ghpages": "2.0.3",
     "codelyzer": "6.0.2",
     "jasmine-core": "5.4.0",
