@@ -15,7 +15,7 @@
   "private": true,
   "engines": {
     "node": "18.20.5",
-    "npm": "9.8.1"
+    "npm": "10.9.2"
   },
   "dependencies": {
     "@angular/animations": "16.2.10",
@@ -54,7 +54,7 @@
     "karma-coverage": "2.2.1",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "5.1.0",
-    "npm": "8.19.3",
+    "npm": "10.9.2",
     "npm-registry-fetch": "18.0.2",
     "protractor": "7.0.0",
     "protractor-jasmine2-screenshot-reporter": "0.5.1",
