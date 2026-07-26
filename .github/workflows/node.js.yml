@@ -24,7 +24,7 @@ jobs:
   #    uses: GabrielBB/xvfb-action@v1
   #    with:
   #      run: npm test
-    - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
