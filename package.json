@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "node ./node_modules/@angular/cli/bin/ng.js",
-    "start": "node ./node_modules/@angular/cli/bin/ng.js serve",
+    "start": "node ./node_modules/@angular/cli/bin/ng.js serve --port 0",
     "build": "node ./node_modules/@angular/cli/bin/ng.js build",
     "test": "node ./node_modules/@angular/cli/bin/ng.js test",
     "lint": "node ./node_modules/@angular/cli/bin/ng.js lint",
