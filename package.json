@@ -14,7 +14,7 @@
   },
   "private": true,
   "engines": {
-    "node": ">=18.19.1",
+    "node": ">=20.19.0",
     "npm": ">=9.9.4"
   },
   "dependencies": {
