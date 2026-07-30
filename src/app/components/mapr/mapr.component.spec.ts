@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import * as d3 from 'd3' // eslint-disable-line no-unused-vars
 
@@ -10,7 +10,7 @@ describe('MaprComponent', () => {
   let component: MaprComponent;
   let fixture: ComponentFixture<MaprComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule

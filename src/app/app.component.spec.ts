@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing'
+import { TestBed, waitForAsync } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
@@ -14,7 +14,7 @@ import { MaprComponent } from './components/mapr/mapr.component'
 /* globals describe, beforeEach, it, expect */
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
 	FormsModule,

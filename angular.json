@@ -85,14 +85,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tree-d3-demo:build"
+            "buildTarget": "tree-d3-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tree-d3-demo:build:production"
+              "buildTarget": "tree-d3-demo:build:production"
             },
             "dev": {
-              "browserTarget": "tree-d3-demo:build:dev"
+              "buildTarget": "tree-d3-demo:build:dev"
             }
           }
         },
