@@ -1,5 +1,5 @@
 // tree-d3-demo
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ApiService } from '../../shared/api.service';
 import { ActiveMapService } from '../../shared/active-map.service';
 //import { Subscription } from 'rxjs/Subscription' // eslint-disable-line no-unused-vars
@@ -14,7 +14,7 @@ import {parse, stringify} from 'flatted';
   styleUrls: ['./mapr.component.css']
 })
 
-export class MaprComponent implements OnInit {
+export class MaprComponent implements OnInit, OnDestroy {
   //@Input() mapStatus: any
   mapStatus: any
   treeData: any
