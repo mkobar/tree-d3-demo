@@ -2,15 +2,15 @@
   "name": "tree-d3-demo",
   "version": "0.0.1",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "_e2e": "ng e2e",
+    "ng": "node ./node_modules/@angular/cli/bin/ng.js",
+    "start": "node ./node_modules/@angular/cli/bin/ng.js serve",
+    "build": "node ./node_modules/@angular/cli/bin/ng.js build",
+    "test": "node ./node_modules/@angular/cli/bin/ng.js test",
+    "lint": "node ./node_modules/@angular/cli/bin/ng.js lint",
+    "_e2e": "node ./node_modules/@angular/cli/bin/ng.js e2e",
     "e2e": "echo e2e not currently supported",
-    "deploy": "ng build --configuration production --base-href /tree-d3-demo/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent",
-    "deploy2": "ng build --configuration=production --base-href /tree-d3-demo-ui/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent --repo=https://GH_TOKEN@github.com/isearch-gp/tree-d3-demo-ui.git"
+    "deploy": "node ./node_modules/@angular/cli/bin/ng.js build --configuration production --base-href /tree-d3-demo/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent",
+    "deploy2": "node ./node_modules/@angular/cli/bin/ng.js build --configuration=production --base-href /tree-d3-demo-ui/ && npx ngh --dir=dist/tree-d3-demo/ --no-silent --repo=https://GH_TOKEN@github.com/isearch-gp/tree-d3-demo-ui.git"
   },
   "private": true,
   "engines": {
