@@ -8,7 +8,7 @@ describe('ActiveMapService', () => {
   beforeEach(() => TestBed.configureTestingModule({}))
 
   it('should be created', () => {
-    const service: ActiveMapService = TestBed.get(ActiveMapService)
+    const service: ActiveMapService = TestBed.inject(ActiveMapService)
     expect(service).toBeTruthy()
   })
 })
