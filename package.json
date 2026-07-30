@@ -59,7 +59,7 @@
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
-    "npm-registry-fetch": "18.0.2",
+    "npm-registry-fetch": "20.0.1",
     "ts-node": "10.9.2",
     "typescript": "5.2.2"
   }
