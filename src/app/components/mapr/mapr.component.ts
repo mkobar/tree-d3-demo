@@ -9,9 +9,10 @@ import * as d3 from 'd3';
 import {parse, stringify} from 'flatted';
 
 @Component({
-  selector: 'app-mapper',
-  templateUrl: './mapr.component.html',
-  styleUrls: ['./mapr.component.css']
+    selector: 'app-mapper',
+    templateUrl: './mapr.component.html',
+    styleUrls: ['./mapr.component.css'],
+    standalone: false
 })
 
 export class MaprComponent implements OnInit, OnDestroy {
