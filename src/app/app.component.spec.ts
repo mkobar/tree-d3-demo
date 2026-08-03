@@ -120,4 +120,23 @@ describe('AppComponent', () => {
     buttons[2].click()
     expect(app.selectMap).toHaveBeenCalledWith('bats')
   })
+
+  it('should navigate through all three trees in sequence by clicking all buttons', () => {
+    const fixture = TestBed.createComponent(AppComponent)
+    fixture.detectChanges()
+    const app = fixture.debugElement.componentInstance
+    const amapService = TestBed.inject(ActiveMapService)
+    spyOn(amapService, 'setMap')
+    spyOn(app, 'selectMap').and.callThrough()
+    const buttons = fixture.debugElement.nativeElement.querySelectorAll('button')
+
+    buttons[0].click()
+    buttons[1].click()
+    buttons[2].click()
+
+    expect(app.selectMap).toHaveBeenCalledTimes(3)
+    expect(amapService.setMap).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'cars' }))
+    expect(amapService.setMap).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'cats' }))
+    expect(amapService.setMap).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'bats' }))
+  })
 });

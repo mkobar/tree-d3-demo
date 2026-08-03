@@ -239,4 +239,26 @@ describe('MaprComponent', () => {
     expect(branches).toContain('D1-Little Brown Bat')
     expect(branches).toContain('C5-Flying Fox')
   })
+
+  it('should navigate through all three trees in sequence', () => {
+    spyOn(component, 'initTree')
+    const amapService = TestBed.inject(ActiveMapService)
+
+    amapService.setMap(makeMapData('cars', mockCarsTreeData))
+    amapService.setMap(makeMapData('cats', mockCatsTreeData))
+    amapService.setMap(makeMapData('bats', mockBatsTreeData))
+
+    expect(component.initTree).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'cars' }), true)
+    expect(component.initTree).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'cats' }), true)
+    expect(component.initTree).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'bats' }), true)
+  })
+
+  it('should call restoreTree when switching to an already initialized tree', () => {
+    spyOn(component, 'restoreTree')
+    const amapService = TestBed.inject(ActiveMapService)
+    const carsMap = makeMapData('cars', mockCarsTreeData)
+    carsMap.lastNodeId = 5 // simulate already initialized
+    amapService.setMap(carsMap)
+    expect(component.restoreTree).toHaveBeenCalledWith(jasmine.objectContaining({ name: 'cars' }), false)
+  })
 })
