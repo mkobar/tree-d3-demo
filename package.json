@@ -63,5 +63,12 @@
     "npm-registry-fetch": "20.0.1",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "lmdb@3.4.2": true,
+    "msgpackr-extract@3.0.4": true,
+    "@parcel/watcher@2.6.0": true,
+    "core-js@3.49.0": true
   }
 }
