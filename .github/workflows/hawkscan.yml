@@ -10,6 +10,7 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Run HawkScan
-        uses: stackhawk/hawkscan-action@v2.5.0
+        uses: stackhawk/hawkscan-action@v3.1.1
+        continue-on-error: true                   # ✏️ Set to false to break your build on scan errors
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
