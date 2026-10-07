@@ -47,7 +47,7 @@
     "@angular/compiler-cli": "20.3.33",
     "@angular/language-service": "20.3.33",
     "@types/d3": "7.4.1",
-    "@types/jasmine": "6.0.0",
+    "@types/jasmine": "7.0.0",
     "@types/jasminewd2": "2.0.13",
     "@types/node": "24.19.1",
     "@typescript-eslint/eslint-plugin": "8.71.0",
