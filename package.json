@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "8.72.0",
     "@typescript-eslint/parser": "8.72.0",
     "angular-cli-ghpages": "3.1.2",
-    "eslint": "8.57.1",
+    "eslint": "10.13.0",
     "jasmine-core": "7.0.2",
     "jasmine-spec-reporter": "7.0.0",
     "karma": "6.4.4",
